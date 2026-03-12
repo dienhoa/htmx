@@ -1455,7 +1455,7 @@ var htmx = (() => {
         }
 
         onLoad(callback) {
-            this.on("htmx:after:process", (evt) => {
+            this.on(this.__maybeAdjustMetaCharacter("htmx:after:process"), (evt) => {
                 callback(evt.target)
             })
         }
@@ -1905,8 +1905,8 @@ var htmx = (() => {
                 let requestQueue = this.__getRequestQueue(elt);
                 requestQueue.abort();
             };
-            elt.addEventListener("htmx:abort", handler);
-            elt._htmx.listeners.push({fromElt: elt, eventName: "htmx:abort", handler});
+            elt.addEventListener(this.__maybeAdjustMetaCharacter("htmx:abort"), handler);
+            elt._htmx.listeners.push({fromElt: elt, eventName: this.__maybeAdjustMetaCharacter("htmx:abort"), handler});
         }
 
         __morph(oldNode, fragment, innerHTML) {
